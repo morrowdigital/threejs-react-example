@@ -4,15 +4,21 @@ import { useEffect } from 'react';
 
 type Props = {
   cameraZoom?: number;
+  cameraY?: number;
 };
 
-export function Scene({ cameraZoom = 1 }: Props) {
+export function Scene({ cameraZoom = 1, cameraY = 0 }: Props) {
   const camera = useThree((state) => state.camera);
 
   useEffect(() => {
     camera.zoom = cameraZoom;
     camera.updateProjectionMatrix();
   }, [camera, cameraZoom]);
+
+  useEffect(() => {
+    camera.position.x = cameraY;
+    camera.updateProjectionMatrix();
+  }, [camera, cameraY]);
 
   return (
     <>

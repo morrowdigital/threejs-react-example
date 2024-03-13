@@ -8,11 +8,12 @@ import Slider from '@react-native-community/slider';
 
 export default function App() {
   const [zoom, setZoom] = useState(1);
+  const [x, setX] = useState(0);
 
   return (
     <View style={{ height: '100%', width: '100%' }}>
       <Canvas>
-        <Scene cameraZoom={zoom} />
+        <Scene cameraZoom={zoom} cameraY={x} />
       </Canvas>
       <View
         style={{
@@ -23,6 +24,17 @@ export default function App() {
           alignSelf: 'center',
         }}
       >
+        <Slider
+          style={{ width: '100%', height: 40 }}
+          minimumValue={-2}
+          maximumValue={2}
+          value={0}
+          onValueChange={setX}
+          thumbTintColor='green'
+          minimumTrackTintColor='green'
+          maximumTrackTintColor='green'
+        />
+
         <Slider
           style={{ width: '100%', height: 40 }}
           minimumValue={0.5}
