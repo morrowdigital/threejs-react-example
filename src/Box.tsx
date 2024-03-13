@@ -25,7 +25,7 @@ export function Box({ position }: Props) {
   return (
     <a.mesh position={position} onClick={onClick} scale={scale} ref={ref}>
       <boxGeometry args={[1, 1, 1]} />
-      <meshBasicMaterial color={color} />
+      <meshStandardMaterial color={color} />
     </a.mesh>
   );
 }
