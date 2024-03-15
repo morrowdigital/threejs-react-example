@@ -1,13 +1,14 @@
-import { Box } from './Box';
 import { useThree } from '@react-three/fiber';
 import { useEffect } from 'react';
 
+import { Box } from './Box';
+
 type Props = {
   cameraZoom?: number;
-  cameraY?: number;
+  cameraX?: number;
 };
 
-export function Scene({ cameraZoom = 1, cameraY = 0 }: Props) {
+export function Scene({ cameraZoom = 1, cameraX = 0 }: Props) {
   const camera = useThree((state) => state.camera);
 
   useEffect(() => {
@@ -16,9 +17,9 @@ export function Scene({ cameraZoom = 1, cameraY = 0 }: Props) {
   }, [camera, cameraZoom]);
 
   useEffect(() => {
-    camera.position.x = cameraY;
+    camera.position.x = cameraX;
     camera.updateProjectionMatrix();
-  }, [camera, cameraY]);
+  }, [camera, cameraX]);
 
   return (
     <>
