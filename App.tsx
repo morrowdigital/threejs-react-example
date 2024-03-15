@@ -1,31 +1,23 @@
+import Slider from '@react-native-community/slider';
+import { Canvas } from '@react-three/fiber';
 import { StatusBar } from 'expo-status-bar';
-import { View } from 'react-native';
+import { useState } from 'react';
+import { View, StyleSheet } from 'react-native';
 
 import { Scene } from './src/Scene';
-import { Canvas } from '@react-three/fiber';
-import { useState } from 'react';
-import Slider from '@react-native-community/slider';
 
 export default function App() {
   const [zoom, setZoom] = useState(1);
   const [x, setX] = useState(0);
 
   return (
-    <View style={{ height: '100%', width: '100%' }}>
+    <View style={styles.wrapper}>
       <Canvas>
-        <Scene cameraZoom={zoom} cameraY={x} />
+        <Scene cameraZoom={zoom} cameraX={x} />
       </Canvas>
-      <View
-        style={{
-          position: 'absolute',
-          bottom: 50,
-          width: '90%',
-          maxWidth: 200,
-          alignSelf: 'center',
-        }}
-      >
+      <View style={styles.slidersWrapper}>
         <Slider
-          style={{ width: '100%', height: 40 }}
+          style={styles.slider}
           minimumValue={-2}
           maximumValue={2}
           value={0}
@@ -36,7 +28,7 @@ export default function App() {
         />
 
         <Slider
-          style={{ width: '100%', height: 40 }}
+          style={styles.slider}
           minimumValue={0.5}
           maximumValue={2}
           value={1}
@@ -50,3 +42,15 @@ export default function App() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  wrapper: { height: '100%', width: '100%' },
+  slidersWrapper: {
+    position: 'absolute',
+    bottom: 50,
+    width: '90%',
+    maxWidth: 200,
+    alignSelf: 'center',
+  },
+  slider: { width: '100%', height: 40 },
+});
