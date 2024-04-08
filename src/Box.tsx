@@ -12,7 +12,7 @@ export function Box({ position }: Props) {
   const ref = useRef<Mesh>(null);
   const { scale } = useSpring({ scale: clicked ? 1.5 : 1 });
 
-  const colorMap = useLoader(
+  const texture = useLoader(
     TextureLoader,
     'https://picsum.photos/seed/threejs/200',
   );
@@ -40,7 +40,7 @@ export function Box({ position }: Props) {
     <a.mesh position={position} onClick={onClick} scale={scale} ref={ref}>
       <boxGeometry args={[1, 1, 1]} />
       {ColorMaterials}
-      <meshStandardMaterial map={colorMap} attach={`material-${5}`} />
+      <meshStandardMaterial map={texture} attach='material-5' />
     </a.mesh>
   );
 }

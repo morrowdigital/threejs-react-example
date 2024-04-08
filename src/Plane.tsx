@@ -1,7 +1,7 @@
 import { useSpring, a } from '@react-spring/three';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useLoader } from '@react-three/fiber';
 import { useRef, useState } from 'react';
-import { Mesh, DoubleSide } from 'three';
+import { Mesh, DoubleSide, TextureLoader, RepeatWrapping } from 'three';
 
 type Props = {
   position: [number, number, number];
@@ -12,6 +12,14 @@ export function Plane({ position }: Props) {
   const ref = useRef<Mesh>(null);
   const color = clicked ? 'hotpink' : 'orange';
   const { scale } = useSpring({ scale: clicked ? 1.5 : 1 });
+
+  const texture = useLoader(
+    TextureLoader,
+    'https://picsum.photos/seed/seed/200',
+  );
+
+  texture.wrapS = texture.wrapT = RepeatWrapping;
+  texture.repeat.set(2, 2);
 
   useFrame(() => {
     if (ref.current) {
@@ -25,7 +33,7 @@ export function Plane({ position }: Props) {
   return (
     <a.mesh position={position} onClick={onClick} scale={scale} ref={ref}>
       <planeGeometry args={[1, 1]} />
-      <meshStandardMaterial color={color} side={DoubleSide} />
+      <meshStandardMaterial map={texture} side={DoubleSide} />
     </a.mesh>
   );
 }
