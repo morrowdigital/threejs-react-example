@@ -1,5 +1,5 @@
 import { useThree } from '@react-three/fiber';
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 
 import { Box } from './Box';
 import { Plane } from './Plane';
@@ -24,12 +24,14 @@ export function Scene({ cameraZoom = 1, cameraX = 0 }: Props) {
   }, [camera, cameraX]);
 
   return (
-    <>
+    <Suspense>
       <ambientLight />
       <pointLight position={[0, 0, 1]} intensity={3} />
       <Box position={[-1.2, 0, 0]} />
       <Sphere position={[1.2, 0, 0]} />
       <Plane position={[0, 1.2, 0]} />
-    </>
+    </Suspense>
   );
 }
+
+// https://picsum.photos/seed/picsum/200

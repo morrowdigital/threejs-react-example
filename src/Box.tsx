@@ -1,7 +1,7 @@
 import { useSpring, a } from '@react-spring/three';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useLoader } from '@react-three/fiber';
 import { useRef, useState } from 'react';
-import { Mesh } from 'three';
+import { Mesh, TextureLoader } from 'three';
 
 type Props = {
   position: [number, number, number];
@@ -10,8 +10,12 @@ type Props = {
 export function Box({ position }: Props) {
   const [clicked, setClicked] = useState(false);
   const ref = useRef<Mesh>(null);
-  const color = clicked ? 'hotpink' : 'orange';
   const { scale } = useSpring({ scale: clicked ? 1.5 : 1 });
+
+  const colorMap = useLoader(
+    TextureLoader,
+    'https://picsum.photos/seed/threejs/200',
+  );
 
   useFrame(() => {
     if (ref.current) {
@@ -20,20 +24,23 @@ export function Box({ position }: Props) {
       ref.current.rotation.y += 0.03;
     }
   });
+
   const onClick = () => setClicked(!clicked);
 
-  const colors = ['red', 'green', 'blue', 'orange', 'purple', 'pink'];
+  const colors = ['red', 'green', 'blue', 'orange', 'purple'];
+  const ColorMaterials = colors.map((color, index) => (
+    <meshStandardMaterial
+      key={color}
+      color={color}
+      attach={`material-${index}`}
+    />
+  ));
 
   return (
     <a.mesh position={position} onClick={onClick} scale={scale} ref={ref}>
       <boxGeometry args={[1, 1, 1]} />
-      {colors.map((color, index) => (
-        <meshStandardMaterial
-          key={color}
-          color={color}
-          attach={`material-${index}`}
-        />
-      ))}
+      {ColorMaterials}
+      <meshStandardMaterial map={colorMap} attach={`material-${5}`} />
     </a.mesh>
   );
 }

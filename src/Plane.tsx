@@ -1,7 +1,7 @@
 import { useSpring, a } from '@react-spring/three';
 import { useFrame } from '@react-three/fiber';
 import { useRef, useState } from 'react';
-import { Mesh, FrontSide, BackSide, DoubleSide } from 'three';
+import { Mesh, DoubleSide } from 'three';
 
 type Props = {
   position: [number, number, number];
