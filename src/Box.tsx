@@ -22,10 +22,18 @@ export function Box({ position }: Props) {
   });
   const onClick = () => setClicked(!clicked);
 
+  const colors = ['red', 'green', 'blue', 'orange', 'purple', 'pink'];
+
   return (
     <a.mesh position={position} onClick={onClick} scale={scale} ref={ref}>
       <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color={color} />
+      {colors.map((color, index) => (
+        <meshStandardMaterial
+          key={color}
+          color={color}
+          attach={`material-${index}`}
+        />
+      ))}
     </a.mesh>
   );
 }
