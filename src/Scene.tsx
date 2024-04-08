@@ -2,6 +2,7 @@ import { useThree } from '@react-three/fiber';
 import { useEffect } from 'react';
 
 import { Box } from './Box';
+import { Sphere } from './Sphere';
 
 type Props = {
   cameraZoom?: number;
@@ -26,7 +27,8 @@ export function Scene({ cameraZoom = 1, cameraX = 0 }: Props) {
       <ambientLight />
       <pointLight position={[0, 0, 1]} intensity={3} />
       <Box position={[-1.2, 0, 0]} />
-      <Box position={[1.2, 0, 0]} />
+      {/*<Box position={[1.2, 0, 0]} />*/}
+      <Sphere position={[1.2, 0, 0]} />
     </>
   );
 }
