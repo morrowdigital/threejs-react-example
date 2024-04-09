@@ -1,7 +1,7 @@
 import { useSpring, a } from '@react-spring/three';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useLoader } from '@react-three/fiber';
 import { useRef, useState } from 'react';
-import { Mesh } from 'three';
+import { Mesh, TextureLoader } from 'three';
 
 type Props = {
   position: [number, number, number];
@@ -10,8 +10,12 @@ type Props = {
 export function Sphere({ position }: Props) {
   const [clicked, setClicked] = useState(false);
   const ref = useRef<Mesh>(null);
-  const color = clicked ? 'hotpink' : 'orange';
   const { scale } = useSpring({ scale: clicked ? 1.5 : 1 });
+
+  const texture = useLoader(
+    TextureLoader,
+    require('../assets/2k_earth_daymap.jpeg'),
+  );
 
   useFrame(() => {
     if (ref.current) {
@@ -25,7 +29,7 @@ export function Sphere({ position }: Props) {
   return (
     <a.mesh position={position} onClick={onClick} scale={scale} ref={ref}>
       <sphereGeometry args={[0.75]} />
-      <meshStandardMaterial color={color} />
+      <meshStandardMaterial map={texture} />
       {/*<meshBasicMaterial color={color} wireframe />*/}
     </a.mesh>
   );
