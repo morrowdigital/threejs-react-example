@@ -10,7 +10,6 @@ type Props = {
 export function Plane({ position }: Props) {
   const [clicked, setClicked] = useState(false);
   const ref = useRef<Mesh>(null);
-  const color = clicked ? 'hotpink' : 'orange';
   const { scale } = useSpring({ scale: clicked ? 1.5 : 1 });
 
   const texture = useLoader(
@@ -18,7 +17,8 @@ export function Plane({ position }: Props) {
     'https://picsum.photos/seed/seed/200',
   );
 
-  texture.wrapS = texture.wrapT = RepeatWrapping;
+  texture.wrapS = RepeatWrapping;
+  texture.wrapT = RepeatWrapping;
   texture.repeat.set(2, 2);
 
   useFrame(() => {
