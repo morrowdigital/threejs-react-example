@@ -18,9 +18,9 @@ export function SphereMesh({ position, imageUrl }: Props) {
 
   useFrame(() => {
     if (ref.current) {
-      ref.current.rotation.x += 0.01;
+      // ref.current.rotation.x += 0.01;
       ref.current.rotation.y += 0.02;
-      ref.current.rotation.y += 0.03;
+      // ref.current.rotation.y += 0.03;
     }
   });
   const onClick = () => setClicked(!clicked);
