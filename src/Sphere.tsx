@@ -30,7 +30,7 @@ export function Sphere({ position }: Props) {
     <a.mesh position={position} onClick={onClick} scale={scale} ref={ref}>
       <sphereGeometry args={[0.75]} />
       <meshStandardMaterial map={texture} />
-      {/*<meshBasicMaterial color={color} wireframe />*/}
+      {/*<meshBasicMaterial wireframe />*/}
     </a.mesh>
   );
 }
