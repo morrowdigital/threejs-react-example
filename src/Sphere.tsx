@@ -1,7 +1,7 @@
 import { useSpring, a } from '@react-spring/three';
 import { useFrame, useLoader } from '@react-three/fiber';
 import { useRef, useState } from 'react';
-import { Mesh, TextureLoader } from 'three';
+import { Mesh, Texture, TextureLoader } from 'three';
 
 type Props = {
   position: [number, number, number];
@@ -15,7 +15,7 @@ export function Sphere({ position }: Props) {
   const texture = useLoader(
     TextureLoader,
     require('../assets/2k_earth_daymap.jpeg'),
-  );
+  ) as Texture;
 
   useFrame(() => {
     if (ref.current) {
