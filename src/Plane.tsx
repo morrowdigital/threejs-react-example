@@ -1,21 +1,25 @@
 import { useSpring, a } from '@react-spring/three';
 import { useFrame, useLoader } from '@react-three/fiber';
 import { useRef, useState } from 'react';
-import { Mesh, TextureLoader } from 'three';
+import { Mesh, DoubleSide, TextureLoader, RepeatWrapping } from 'three';
 
 type Props = {
   position: [number, number, number];
 };
 
-export function Box({ position }: Props) {
+export function Plane({ position }: Props) {
   const [clicked, setClicked] = useState(false);
   const ref = useRef<Mesh>(null);
   const { scale } = useSpring({ scale: clicked ? 1.5 : 1 });
 
   const texture = useLoader(
     TextureLoader,
-    'https://picsum.photos/seed/threejs/200',
+    'https://picsum.photos/seed/seed/200',
   );
+
+  texture.wrapS = RepeatWrapping;
+  texture.wrapT = RepeatWrapping;
+  texture.repeat.set(2, 2);
 
   useFrame(() => {
     if (ref.current) {
@@ -24,23 +28,12 @@ export function Box({ position }: Props) {
       ref.current.rotation.y += 0.03;
     }
   });
-
   const onClick = () => setClicked(!clicked);
-
-  const colors = ['red', 'green', 'blue', 'orange', 'purple'];
-  const ColorMaterials = colors.map((color, index) => (
-    <meshStandardMaterial
-      key={color}
-      color={color}
-      attach={`material-${index}`}
-    />
-  ));
 
   return (
     <a.mesh position={position} onClick={onClick} scale={scale} ref={ref}>
-      <boxGeometry args={[1, 1, 1]} />
-      {ColorMaterials}
-      <meshStandardMaterial map={texture} attach='material-5' />
+      <planeGeometry args={[1, 1]} />
+      <meshStandardMaterial map={texture} side={DoubleSide} />
     </a.mesh>
   );
 }
